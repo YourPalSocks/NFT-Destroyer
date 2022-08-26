@@ -1,0 +1,173 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/8bitoperator_dyn.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/UI.cs" type="Script" id=2]
+[ext_resource path="res://GameIcon.png" type="Texture" id=3]
+[ext_resource path="res://components/Pause Menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/textures/Elixerium_icon.png" type="Texture" id=5]
+[ext_resource path="res://assets/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://components/Shop.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 5
+outline_color = Color( 1, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Game GUI/Store Menu/HBoxContainer/Exclamation:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ " " ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Game GUI/Store Menu/HBoxContainer/Exclamation:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Store Sale"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Game GUI/Store Menu/HBoxContainer/Exclamation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, false ]
+}
+
+[node name="UI" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+
+[node name="Game GUI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Top Menu" type="TextureRect" parent="Game GUI"]
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -525.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.75
+texture = ExtResource( 3 )
+expand = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Game GUI/Top Menu"]
+anchor_right = 1.0
+anchor_bottom = 0.1
+margin_top = 10.0
+margin_right = -3.0
+margin_bottom = 51.3
+custom_constants/margin_right = 10
+custom_constants/margin_left = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Game GUI/Top Menu/MarginContainer"]
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 587.0
+margin_bottom = 46.0
+size_flags_vertical = 4
+custom_constants/separation = 15
+
+[node name="NFTsDestroyed" type="Label" parent="Game GUI/Top Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 577.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 1 )
+text = "NFTs Destroyed: 0"
+
+[node name="ElixerCollected" type="Label" parent="Game GUI/Top Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 30.0
+margin_right = 577.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 1 )
+text = "Elixerium Collected: 0"
+
+[node name="Store Menu" type="MarginContainer" parent="Game GUI"]
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 411.0
+margin_top = 536.0
+margin_right = 1.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.75
+custom_constants/margin_right = 5
+custom_constants/margin_left = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Game GUI/Store Menu"]
+margin_left = 5.0
+margin_right = 185.0
+margin_bottom = 64.0
+
+[node name="Shop Button" type="Button" parent="Game GUI/Store Menu/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 144.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 1 )
+text = "Go to Shop >>"
+icon = ExtResource( 5 )
+flat = true
+icon_align = 1
+expand_icon = true
+
+[node name="Exclamation" type="Label" parent="Game GUI/Store Menu/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+margin_left = 148.0
+margin_top = 20.0
+margin_right = 168.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 2 )
+text = " !"
+
+[node name="Pause Menu" parent="." instance=ExtResource( 4 )]
+visible = false
+mouse_filter = 2
+
+[node name="Shop" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+anims/RESET = SubResource( 4 )
+"anims/Store Sale" = SubResource( 3 )
+
+[connection signal="mouse_entered" from="Game GUI/Store Menu/HBoxContainer/Shop Button" to="." method="_on_Shop_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Game GUI/Store Menu/HBoxContainer/Shop Button" to="." method="_on_Shop_Button_mouse_exited"]
+[connection signal="pressed" from="Game GUI/Store Menu/HBoxContainer/Shop Button" to="." method="_on_Shop_Button_pressed"]

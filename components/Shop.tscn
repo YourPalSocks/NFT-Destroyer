@@ -1,0 +1,186 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://GameIcon.png" type="Texture" id=1]
+[ext_resource path="res://assets/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/8bitoperator_dyn.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/StoreManager.cs" type="Script" id=4]
+[ext_resource path="res://assets/SFX/ConfirmSound.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/textures/Elixerium_icon.png" type="Texture" id=6]
+[ext_resource path="res://assets/SFX/DenySound.wav" type="AudioStream" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Shop" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+pause_mode = 2
+modulate = Color( 0, 0, 0, 0.647059 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.75
+texture = ExtResource( 1 )
+expand = true
+
+[node name="Shop Menu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 10
+
+[node name="Title" type="MarginContainer" parent="Shop Menu"]
+margin_right = 600.0
+margin_bottom = 128.0
+size_flags_vertical = 5
+custom_constants/margin_top = 10
+
+[node name="TextureRect" type="TextureRect" parent="Shop Menu/Title"]
+pause_mode = 2
+self_modulate = Color( 0, 0, 0, 1 )
+margin_top = 10.0
+margin_right = 600.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 600, 50 )
+size_flags_stretch_ratio = 3.75
+texture = ExtResource( 1 )
+expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop Menu/Title"]
+margin_top = 10.0
+margin_right = 600.0
+margin_bottom = 128.0
+custom_constants/separation = 5
+
+[node name="Elixer Icon" type="TextureRect" parent="Shop Menu/Title/VBoxContainer"]
+pause_mode = 2
+margin_right = 600.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 600, 50 )
+size_flags_stretch_ratio = 3.75
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Shop Menu/Title/VBoxContainer"]
+margin_top = 55.0
+margin_right = 600.0
+margin_bottom = 78.0
+custom_fonts/font = SubResource( 1 )
+text = "Elixerium Shop"
+align = 1
+
+[node name="NFT Counter" type="Label" parent="Shop Menu/Title/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 83.0
+margin_right = 600.0
+margin_bottom = 98.0
+custom_fonts/font = ExtResource( 3 )
+text = "NFTs: 0"
+align = 1
+
+[node name="Elixer Counter" type="Label" parent="Shop Menu/Title/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 103.0
+margin_right = 600.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 3 )
+text = "Elixerium: 0"
+align = 1
+
+[node name="Shop Section" type="MarginContainer" parent="Shop Menu"]
+margin_top = 138.0
+margin_right = 600.0
+margin_bottom = 571.0
+size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="Shop Menu/Shop Section"]
+pause_mode = 2
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 20.0
+margin_right = 580.0
+margin_bottom = 413.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.75
+texture = ExtResource( 1 )
+expand = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop Menu/Shop Section"]
+margin_left = 20.0
+margin_right = 580.0
+margin_bottom = 413.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="Shop Items" type="VBoxContainer" parent="Shop Menu/Shop Section/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 540.0
+margin_bottom = 393.0
+size_flags_vertical = 3
+custom_constants/separation = 25
+
+[node name="Miner Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
+unique_name_in_owner = true
+margin_right = 520.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+action_mode = 0
+
+[node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Miner Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+custom_fonts/font = ExtResource( 3 )
+text = "Miner Upgrade: $$$"
+valign = 1
+
+[node name="NumberOf" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Miner Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "0 "
+align = 2
+valign = 1
+
+[node name="Return Button" type="Button" parent="Shop Menu"]
+unique_name_in_owner = true
+margin_top = 581.0
+margin_right = 600.0
+margin_bottom = 600.0
+custom_fonts/font = SubResource( 2 )
+text = "<< Go Back"
+flat = true
+expand_icon = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+autostart = true
+
+[node name="ConfirmSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -15.0
+bus = "SFX"
+
+[node name="DenySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+bus = "SFX"
+
+[connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/Miner Upgrade" to="." method="_on_Miner_Upgrade_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

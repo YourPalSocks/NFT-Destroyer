@@ -1,0 +1,136 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/Fake nfts/ErrorNFT.png" type="Texture" id=1]
+[ext_resource path="res://src/NFT.cs" type="Script" id=2]
+[ext_resource path="res://assets/textures/fire1_ 01.png" type="Texture" id=3]
+[ext_resource path="res://assets/SFX/Fire.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/SFX/flip.wav" type="AudioStream" id=5]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[sub_resource type="Shader" id=9]
+code = "shader_type spatial;
+render_mode depth_draw_alpha_prepass, cull_disabled;
+
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+
+uniform vec4 emission_color : hint_color = vec4(1);
+uniform float emission_amount;
+
+uniform sampler2D dissolve_texture;
+uniform float burn_size : hint_range(0,2);
+uniform float dissolve_amount : hint_range(0,1);
+
+
+void fragment() {
+	vec4 albedo_tex = texture(texture_albedo,UV);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	
+	float sample = texture(dissolve_texture, UV).r;
+	float emission_value = 1.0 - smoothstep(dissolve_amount, dissolve_amount + burn_size, sample);
+	EMISSION = vec3(emission_value * emission_amount * emission_color.rgb);
+	ALPHA = smoothstep(dissolve_amount - burn_size, dissolve_amount, sample);
+}"
+
+[sub_resource type="OpenSimplexNoise" id=11]
+seed = 4
+
+[sub_resource type="NoiseTexture" id=12]
+seamless = true
+noise = SubResource( 11 )
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 9 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/emission_color = Color( 1, 1, 1, 1 )
+shader_param/emission_amount = 0.0
+shader_param/burn_size = 0.0
+shader_param/dissolve_amount = 0.0
+shader_param/texture_albedo = ExtResource( 1 )
+shader_param/dissolve_texture = SubResource( 12 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 1, 0.0077402 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+params_billboard_mode = 3
+params_use_alpha_scissor = true
+params_alpha_scissor_threshold = 0.98
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=4]
+material = SubResource( 5 )
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 3.73133, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "nft_drop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 3.731, -2.258 ), Vector3( 0, 0, -2.258 ) ]
+}
+
+[node name="NFT" type="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.73133, 0 )
+collision_layer = 3
+script = ExtResource( 2 )
+
+[node name="NFT_Pic" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+material = SubResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="FireParticles" type="CPUParticles" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 30
+mesh = SubResource( 4 )
+emission_shape = 2
+emission_box_extents = Vector3( 1, 0.8, 0.5 )
+gravity = Vector3( 0, 1, 0 )
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -15.0
+bus = "SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 7 )
+anims/nft_drop = SubResource( 8 )
+
+[node name="FlipSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0
+bus = "SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_NFT_body_entered"]

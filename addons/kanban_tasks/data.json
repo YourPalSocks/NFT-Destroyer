@@ -1,0 +1,149 @@
+{
+  "settings": {
+    "show_details_preview": true
+  },
+  "categories": [
+    {
+      "title": "Task",
+      "color": "6495ed"
+    },
+    {
+      "title": "Bugs",
+      "color": "ec4e29"
+    },
+    {
+      "title": "Backlog",
+      "color": "83d713"
+    },
+    {
+      "title": "Wishlist",
+      "color": "9e03c9"
+    }
+  ],
+  "columns": [
+    {
+      "stages": [
+        0
+      ]
+    },
+    {
+      "stages": [
+        1
+      ]
+    },
+    {
+      "stages": [
+        2
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "title": "Todo",
+      "tasks": [
+        13,
+        12,
+        14
+      ]
+    },
+    {
+      "title": "Doing",
+      "tasks": [
+        7,
+        6
+      ]
+    },
+    {
+      "title": "Done",
+      "tasks": [
+        1,
+        2,
+        3,
+        8,
+        11,
+        4,
+        9,
+        0,
+        5,
+        10
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "category": 3,
+      "title": "Elixerium Collectables",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "NFT Generation",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Basic player functionality",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Basic UI functionality",
+      "details": ""
+    },
+    {
+      "category": 2,
+      "title": "Fancy slide effects",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Fix assets failing to load on export",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Exlierium Store",
+      "details": "Maybe it'd be funny if the values kept chaning.."
+    },
+    {
+      "category": 2,
+      "title": "NFT Asset Creation",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Pause Menu",
+      "details": ""
+    },
+    {
+      "category": 2,
+      "title": "Better Burning Effects",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Match thrown when clicking store icon",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Store: Miners",
+      "details": "Elixer Miners that passively generate Elixer."
+    },
+    {
+      "category": 2,
+      "title": "GPU Functionality",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Store: Matches",
+      "details": "Reduces Match cooldown time"
+    },
+    {
+      "category": 0,
+      "title": "Store: Pump/Dump",
+      "details": "Randomizes value of falling coin"
+    }
+  ]
+}
