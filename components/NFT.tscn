@@ -51,10 +51,12 @@ shader_param/texture_albedo = ExtResource( 1 )
 shader_param/dissolve_texture = SubResource( 12 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 1, 1, 0.0077402 )
+extents = Vector3( 2, 2, 0.008 )
 
 [sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
 flags_unshaded = true
+vertex_color_is_srgb = true
 params_billboard_mode = 3
 params_use_alpha_scissor = true
 params_alpha_scissor_threshold = 0.98

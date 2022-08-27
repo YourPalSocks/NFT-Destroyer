@@ -54,20 +54,19 @@ destroyTime = 20.0
 [node name="Match" type="MeshInstance" parent="."]
 transform = Transform( -0.15, 0, -1.31134e-08, 0, 0.15, 0, 1.31134e-08, 0, -0.15, 0, 0, 0 )
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="Flame" type="AnimatedSprite3D" parent="Match"]
 transform = Transform( -13.3333, 0, 5.82818e-07, 0, 13.3333, 0, -1.16564e-06, 0, -6.66667, -1.15706e-07, 0.859787, 1.32352 )
 alpha_cut = 1
 frames = SubResource( 2 )
-frame = 5
+frame = 12
 playing = true
 
 [node name="Flame2" type="AnimatedSprite3D" parent="Match"]
 transform = Transform( -5.82818e-07, 0, -6.66667, 0, 13.3333, 0, 13.3333, 0, -2.91409e-07, -1.15706e-07, 0.859787, 1.32352 )
 alpha_cut = 1
 frames = SubResource( 2 )
-frame = 5
+frame = 12
 playing = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
