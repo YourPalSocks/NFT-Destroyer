@@ -159,6 +159,54 @@ text = "0 "
 align = 2
 valign = 1
 
+[node name="Match Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
+unique_name_in_owner = true
+margin_top = 75.0
+margin_right = 520.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 0, 50 )
+action_mode = 0
+
+[node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Match Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+custom_fonts/font = ExtResource( 3 )
+text = "Match Cooldown Reduction: $$$"
+valign = 1
+
+[node name="NumberOf" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Match Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "0 "
+align = 2
+valign = 1
+
+[node name="PD Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
+unique_name_in_owner = true
+margin_top = 150.0
+margin_right = 520.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 50 )
+action_mode = 0
+
+[node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/PD Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+custom_fonts/font = ExtResource( 3 )
+text = "Pump/Dump Elixerium: $$$"
+valign = 1
+
+[node name="NumberOf" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/PD Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "0 "
+align = 2
+valign = 1
+
 [node name="Return Button" type="Button" parent="Shop Menu"]
 unique_name_in_owner = true
 margin_top = 581.0
@@ -183,4 +231,6 @@ stream = ExtResource( 7 )
 bus = "SFX"
 
 [connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/Miner Upgrade" to="." method="_on_Miner_Upgrade_pressed"]
+[connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/Match Upgrade" to="." method="_on_Match_Upgrade_pressed"]
+[connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/PD Upgrade" to="." method="_on_PD_Upgrade_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -128,7 +128,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38813, -0.377868, -1.988 )
 visible = false
 
 [node name="GPU5" parent="GPU PowerUps" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38813, -0.973112, -1.988 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38813, -0.906432, -1.988 )
 visible = false
 
 [node name="GPU6" parent="GPU PowerUps" instance=ExtResource( 8 )]
@@ -148,7 +148,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39358, -0.377868, -1.988 )
 visible = false
 
 [node name="GPU10" parent="GPU PowerUps" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39358, -0.973112, -1.988 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39358, -0.906432, -1.988 )
 visible = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

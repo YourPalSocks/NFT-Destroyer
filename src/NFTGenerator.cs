@@ -36,6 +36,8 @@ public class NFTGenerator : Control
 	private Timer timer;
 	private RandomNumberGenerator rng = new RandomNumberGenerator();
 
+	private int counter = 0;
+
 
 	public override void _Ready()
 	{
@@ -115,7 +117,8 @@ public class NFTGenerator : Control
 	{
 		// Save finished NFT
 		Image image = view.GetTexture().GetData();
-		// image.SavePng("testnft_" + 1 + ".png"); // Uncomment to save generated NFT as a png (haha irony)
+		//image.SavePng("testnft_" + counter + ".png"); // Uncomment to save generated NFT as a png (haha irony)
+		//counter++;
 		ImageTexture tex = new ImageTexture();
 		tex.CreateFromImage(image);
 

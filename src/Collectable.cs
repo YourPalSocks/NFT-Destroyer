@@ -7,11 +7,15 @@ public class Collectable : RigidBody
     private AudioStreamPlayer audio;
     private bool in_coin = false;
     private bool collected = false;
+    private int coinAmt = 1;
+
+    private AnimationPlayer anim;
 
     public override void _Ready()
     {
         audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
         manager = GetParent<GameManager>();
+        anim = GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
     public override void _Process(float delta)
@@ -23,16 +27,25 @@ public class Collectable : RigidBody
                 audio.Play();
                 GameManager.can_throw_matches = true;
                 collected = true;
-                Visible = false;
-                manager.addCoin();
+                GetChild<Spatial>(0).Visible = false;
+                GravityScale = 0;
+                manager.addCoin(coinAmt);
+                // Play animation here
+                anim.Play("Plus One");
             }
         }
 
         // Remove after sound is done
-        if(collected && audio.Playing == false)
+        if(collected && !anim.IsPlaying())
         {
             QueueFree();
         }
+    }
+
+    public void setCoinAmt(int amt)
+    {
+        coinAmt = amt;
+        GetNode<Label3D>("Text").Text = "+" + coinAmt.ToString();
     }
 
     private void _on_Area_mouse_entered()

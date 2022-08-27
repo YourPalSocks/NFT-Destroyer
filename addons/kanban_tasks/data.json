@@ -41,9 +41,7 @@
     {
       "title": "Todo",
       "tasks": [
-        13,
-        12,
-        14
+
       ]
     },
     {
@@ -61,11 +59,17 @@
         3,
         8,
         11,
+        13,
+        14,
         4,
         9,
+        12,
+        17,
         0,
+        15,
         5,
-        10
+        10,
+        16
       ]
     }
   ],
@@ -144,6 +148,21 @@
       "category": 0,
       "title": "Store: Pump/Dump",
       "details": "Randomizes value of falling coin"
+    },
+    {
+      "category": 3,
+      "title": "Market Event: Text highlighting based on price",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Market Event timer active in shop",
+      "details": ""
+    },
+    {
+      "category": 2,
+      "title": "Coin +1 effect",
+      "details": ""
     }
   ]
 }

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/models/Material.material" type="Material" id=1]
 [ext_resource path="res://assets/models/ElixeriumCoin.tres" type="Material" id=2]
 [ext_resource path="res://assets/SFX/Collect.wav" type="AudioStream" id=3]
 [ext_resource path="res://src/Collectable.cs" type="Script" id=4]
+[ext_resource path="res://assets/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "ElixeriumCoin_Cube"
@@ -27,9 +28,120 @@ extents = Vector3( 1.45849, 0.432046, 1.46531 )
 height = 0.189068
 radius = 0.362045
 
+[sub_resource type="DynamicFont" id=4]
+size = 20
+outline_size = 2
+font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Plus One"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Text:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.00655383, -0.0919819, -0.00682259 ), Vector3( 0.00655383, 0.102886, 0.111779 ), Vector3( 0.00655383, 0.0815996, -0.140111 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Text:outline_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Text:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.00655383, -0.0919819, -0.00682259 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Text:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Text:outline_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("GPU:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.15, 0.15, 0.15 ) ]
+}
+
 [node name="ElixeriumCoin" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 gravity_scale = 0.1
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 script = ExtResource( 4 )
 
 [node name="Cube" type="MeshInstance" parent="."]
@@ -52,6 +164,19 @@ volume_db = -10.0
 bus = "SFX"
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+
+[node name="Text" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00655383, -0.0919819, -0.00682259 )
+pixel_size = 0.02
+modulate = Color( 1, 1, 1, 0 )
+outline_modulate = Color( 0, 0, 0, 0 )
+text = "+1"
+font = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+"anims/Plus One" = SubResource( 5 )
+anims/RESET = SubResource( 6 )
 
 [connection signal="mouse_entered" from="Area" to="." method="_on_Area_mouse_entered"]
 [connection signal="mouse_exited" from="Area" to="." method="_on_Area_mouse_exited"]

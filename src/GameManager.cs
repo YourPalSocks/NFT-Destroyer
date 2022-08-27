@@ -12,7 +12,7 @@ public class GameManager : Node
     // Coin collectibles
     [Export]
     private PackedScene coin;
-    private Vector3 COIN_START = new Vector3(-0.48f, 2f, -2f);
+    private Vector3 COIN_START = new Vector3(-0.48f, 2f, -1.8f);
     RandomNumberGenerator rng;
     private const float COIN_DROP_TIME = 40f;
     private float cur_coin_drop;
@@ -20,9 +20,13 @@ public class GameManager : Node
     // Shop things
     private Spatial gpu_storage;
     private int gpus_active = 0;
+    private int match_down = 0;
+    private int pump_amt = 0;
 
     // Shop contrains
     public const int MAX_GPUS = 10;
+    public const int MAX_MATCHES = 5;
+    public const int MAX_PUMP = 5;
 
     private UI ui;
     private PlayerScript player;
@@ -88,13 +92,18 @@ public class GameManager : Node
         spawnNewNFT();
         nfts_destroyed++;
 
+        if(nfts_destroyed % 5 == 0) // Free coin for every 5 NFTs burned
+        {
+            spawnCoin();
+        }
+
         // Update UI
         ui.updateUI();
     }
 
-    public void addCoin()
+    public void addCoin(int amt)
     {
-        coins_collected++;
+        coins_collected += amt;
 
         // Update UI
         ui.updateUI();
@@ -105,10 +114,16 @@ public class GameManager : Node
         float x_coor = rng.RandfRange(-1.3f, 1.3f);
         float z_rot = rng.RandiRange(-77, 77);
 
-        Spatial new_coin = (Spatial) coin.Instance();
+        Collectable new_coin = (Collectable) coin.Instance();
         AddChild(new_coin);
         new_coin.Translation = new Vector3(x_coor, COIN_START.y, COIN_START.z);
-        new_coin.RotationDegrees = new Vector3(z_rot, -90, -90);
+        new_coin.GetChild<Spatial>(0).RotationDegrees = new Vector3(0, z_rot, 0);
+
+        // Set value based on upgrade
+        if(pump_amt > 0)
+        {
+            new_coin.setCoinAmt(rng.RandiRange(1, pump_amt + 1));
+        }
     }
 
     private void spawnNewNFT()
@@ -130,12 +145,33 @@ public class GameManager : Node
         return gpus_active;
     }
 
+    public int getMatchCooldownAmt()
+    {
+        return match_down;
+    }
+
+    public int getPumpAmt()
+    {
+        return pump_amt;
+    }
+
     public void activateGpu()
     {
         gpus_active++;
         GPUScript gpu = gpu_storage.GetChild<GPUScript>(gpus_active - 1);
         gpu.Visible = true;
         gpu.Connect("gpu_timeout", this, "_add_Coin_From_GPU");
+    }
+
+    public void reduceMatchAmt()
+    {
+        match_down++;
+        player.reduceMatchTime(1.2f);
+    }
+
+    public void addCoinVariety()
+    {
+        pump_amt++;
     }
 
     private void _add_Coin_From_GPU()
