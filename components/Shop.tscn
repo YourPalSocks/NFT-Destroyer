@@ -124,23 +124,23 @@ margin_left = 20.0
 margin_right = 580.0
 margin_bottom = 413.0
 custom_constants/margin_right = 20
-custom_constants/margin_top = 20
 custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
 
 [node name="Shop Items" type="VBoxContainer" parent="Shop Menu/Shop Section/MarginContainer"]
 margin_left = 20.0
-margin_top = 20.0
 margin_right = 540.0
-margin_bottom = 393.0
+margin_bottom = 413.0
 size_flags_vertical = 3
-custom_constants/separation = 25
+custom_constants/separation = 45
+alignment = 1
 
 [node name="Miner Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
 unique_name_in_owner = true
+margin_top = 39.0
 margin_right = 520.0
-margin_bottom = 50.0
+margin_bottom = 89.0
 rect_min_size = Vector2( 0, 50 )
+hint_tooltip = "Adds a GPU that generates an Elixerium coin every 5 seconds"
 action_mode = 0
 
 [node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Miner Upgrade"]
@@ -161,10 +161,11 @@ valign = 1
 
 [node name="Match Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
 unique_name_in_owner = true
-margin_top = 75.0
+margin_top = 134.0
 margin_right = 520.0
-margin_bottom = 125.0
+margin_bottom = 184.0
 rect_min_size = Vector2( 0, 50 )
+hint_tooltip = "Throw matches at a faster rate"
 action_mode = 0
 
 [node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Match Upgrade"]
@@ -185,10 +186,11 @@ valign = 1
 
 [node name="PD Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
 unique_name_in_owner = true
-margin_top = 150.0
+margin_top = 229.0
 margin_right = 520.0
-margin_bottom = 200.0
+margin_bottom = 279.0
 rect_min_size = Vector2( 0, 50 )
+hint_tooltip = "Falling Elixerium coins can be worth more."
 action_mode = 0
 
 [node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/PD Upgrade"]
@@ -200,6 +202,31 @@ text = "Pump/Dump Elixerium: $$$"
 valign = 1
 
 [node name="NumberOf" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/PD Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "0 "
+align = 2
+valign = 1
+
+[node name="Market Upgrade" type="Button" parent="Shop Menu/Shop Section/MarginContainer/Shop Items"]
+unique_name_in_owner = true
+margin_top = 324.0
+margin_right = 520.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 0, 50 )
+hint_tooltip = "Market Events can cause bigger discounts (can also raise prices)"
+action_mode = 0
+
+[node name="NameAndPrice" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Market Upgrade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+custom_fonts/font = ExtResource( 3 )
+text = "Market Manipulation: $$$"
+valign = 1
+
+[node name="NumberOf" type="Label" parent="Shop Menu/Shop Section/MarginContainer/Shop Items/Market Upgrade"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )
@@ -233,4 +260,5 @@ bus = "SFX"
 [connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/Miner Upgrade" to="." method="_on_Miner_Upgrade_pressed"]
 [connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/Match Upgrade" to="." method="_on_Match_Upgrade_pressed"]
 [connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/PD Upgrade" to="." method="_on_PD_Upgrade_pressed"]
+[connection signal="pressed" from="Shop Menu/Shop Section/MarginContainer/Shop Items/Market Upgrade" to="." method="_on_Market_Upgrade_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

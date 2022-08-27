@@ -19,7 +19,14 @@ public class StoreManager : Control
     // Prices
     private int gpu_coin_cost = 5;
     private int match_down_cost = 15;
-    private int pump_dump_amt = 15;
+    private int pump_dump_amt = 20;
+    private int market_amt = 45;
+
+    // Price upgrade
+    private int min_price_change = -10;
+    private int max_price_change = 10;
+
+    private int market_upgrades = 0;
 
     public override void _Ready()
     {
@@ -51,6 +58,7 @@ public class StoreManager : Control
         GetNode("%Miner Upgrade").GetChild<Label>(0).Text = "Miner Upgrade: $" + gpu_coin_cost.ToString();
         GetNode("%Match Upgrade").GetChild<Label>(0).Text = "Match Cooldown Reduction: $" + match_down_cost.ToString();
         GetNode("%PD Upgrade").GetChild<Label>(0).Text = "Pump/Dump Elixerium: $" + pump_dump_amt.ToString();
+        GetNode("%Market Upgrade").GetChild<Label>(0).Text = "Market Manipulation: $" + market_amt.ToString();
     }
 
     private void _on_Miner_Upgrade_pressed()
@@ -111,24 +119,49 @@ public class StoreManager : Control
         }
     }
 
+    private void _on_Market_Upgrade_pressed()
+    {
+        if(market_upgrades < GameManager.MAX_MARKET && GameManager.coins_collected >= market_amt)
+        {
+            confirm_sound.Play();
+            min_price_change -= 1;
+            max_price_change += 1;
+            // Update UI and price
+            GameManager.coins_collected -= market_amt;
+            market_amt += 25;
+            GetNode("%Market Upgrade").GetChild<Label>(1).Text = market_upgrades.ToString() + " ";
+            GetNode("%Market Upgrade").GetChild<Label>(0).SelfModulate = Colors.White;
+            updateUI();
+        }
+        else
+        {
+            deny_sound.Play();
+        }
+    }
+
     // Market Event: change prices
     private void _on_Timer_timeout()
     {
         // Shuffle GPU price
         int temp = 0;
-        temp = changePrice(gpu_coin_cost, -10, 10);
+        temp = changePrice(gpu_coin_cost);
         compareAndChangeColor(GetNode("%Miner Upgrade").GetChild<Label>(0), gpu_coin_cost, temp);
         gpu_coin_cost = temp;
 
         // Shuffle Match cooldown price
-        temp = changePrice(match_down_cost, -10, 10);
+        temp = changePrice(match_down_cost);
         compareAndChangeColor(GetNode("%Match Upgrade").GetChild<Label>(0), match_down_cost, temp);
         match_down_cost = temp;
 
         // Shuffle pump price
-        temp = changePrice(pump_dump_amt, -10, 10);
+        temp = changePrice(pump_dump_amt);
         compareAndChangeColor(GetNode("%PD Upgrade").GetChild<Label>(0), pump_dump_amt, temp);
         pump_dump_amt = temp;
+
+        // Shuffle market price
+        temp = changePrice(market_amt);
+        compareAndChangeColor(GetNode("%Market Upgrade").GetChild<Label>(0), market_amt, temp);
+        market_amt = temp;
 
         // Reset the timer
         timer.WaitTime = 60 + rng.RandiRange(-15, 60);
@@ -154,10 +187,10 @@ public class StoreManager : Control
         }
     }
 
-    private int changePrice(int start, int min, int max)
+    private int changePrice(int start)
     {
         // Change price by adding random value
-        start += rng.RandiRange(min, max);
+        start += rng.RandiRange(min_price_change, max_price_change);
         if(start <= 0) // No negative or zero prices
         {
             start = 1;

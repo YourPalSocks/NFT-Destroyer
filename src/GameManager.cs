@@ -27,6 +27,7 @@ public class GameManager : Node
     public const int MAX_GPUS = 10;
     public const int MAX_MATCHES = 5;
     public const int MAX_PUMP = 5;
+    public const int MAX_MARKET = 10;
 
     private UI ui;
     private PlayerScript player;

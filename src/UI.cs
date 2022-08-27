@@ -19,9 +19,9 @@ public class UI : Control
     {
         nfts_label = GetNode<Label>("%NFTsDestroyed");
         coins_label = GetNode<Label>("%ElixerCollected");
-        game_gui = GetChild<Control>(0);
-        pause_menu = GetChild<Control>(1);
-        shop_menu = GetChild<StoreManager>(2);
+        game_gui = GetNode<Control>("Game GUI");
+        pause_menu = GetNode<Control>("Pause Menu");
+        shop_menu = GetNode<StoreManager>("Shop");
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         exclamation = GetNode<Label>("%Exclamation");
         // Connect pause menu signals
