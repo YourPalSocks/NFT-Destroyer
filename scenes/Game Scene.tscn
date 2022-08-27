@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://components/NFT.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/PlayerScript.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://components/UI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/ElixeriumCoin.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/GPU.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/BGM/Town_-_Nightlife_Photographer.ogg" type="AudioStream" id=9]
 
 [sub_resource type="Shader" id=2]
 code = "/*
@@ -150,5 +151,12 @@ visible = false
 [node name="GPU10" parent="GPU PowerUps" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39358, -0.906432, -1.988 )
 visible = false
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 9 )
+volume_db = -15.0
+autoplay = true
+bus = "Music"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
